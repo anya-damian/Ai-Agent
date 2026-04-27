@@ -1,0 +1,52 @@
+[
+  { "id": "START", "parentId": null, "type": "start", "text": "Good evening. Let's look at your day.", "options": [], "target": "A1_OPEN", "signal": "" },
+  
+  { "id": "A1_OPEN", "parentId": "START", "type": "question", "text": "How would you describe today in one word?", "options": ["Tough", "Productive", "Mixed", "Frustrating"], "target": "", "signal": "" },
+  { "id": "A1_D1", "parentId": "A1_OPEN", "type": "decision", "text": "", "options": ["answer=Productive|Mixed:A1_Q_AGENCY_HIGH", "answer=Tough|Frustrating:A1_Q_AGENCY_LOW"], "target": "", "signal": "" },
+  
+  { "id": "A1_Q_AGENCY_HIGH", "parentId": "A1_D1", "type": "question", "text": "You said '{A1_OPEN.answer}'. When something went well today, what made it happen?", "options": ["I prepared well", "The team came through", "I got lucky", "I adapted on the fly"], "target": "", "signal": "axis1:internal" },
+  { "id": "A1_Q_AGENCY_LOW", "parentId": "A1_D1", "type": "question", "text": "You said '{A1_OPEN.answer}'. When things got difficult, what was your first instinct?", "options": ["Figure out what I could control", "Wait for someone to step in", "Push through alone", "Feel stuck"], "target": "", "signal": "axis1:external" },
+  
+  { "id": "A1_D2", "parentId": "A1_Q_AGENCY_HIGH", "type": "decision", "text": "", "options": ["answer=I prepared well|I adapted on the fly:A1_R_INT", "answer=The team came through|I got lucky:A1_R_EXT_LIGHT"], "target": "", "signal": "" },
+  { "id": "A1_D3", "parentId": "A1_Q_AGENCY_LOW", "type": "decision", "text": "", "options": ["answer=Figure out what I could control|Push through alone:A1_R_INT_LIGHT", "answer=Wait for someone to step in|Feel stuck:A1_R_EXT"], "target": "", "signal": "" },
+
+  { "id": "A1_R_INT", "parentId": "A1_D2", "type": "reflection", "text": "You see your hand in what happened today. That's pure agency. You stayed in the driver's seat.", "options": [], "target": "BRIDGE_1_2", "signal": "axis1:internal" },
+  { "id": "A1_R_EXT_LIGHT", "parentId": "A1_D2", "type": "reflection", "text": "You recognize external factors helped you today. Humility is good, but don't forget your own effort.", "options": [], "target": "BRIDGE_1_2", "signal": "axis1:external" },
+  { "id": "A1_R_INT_LIGHT", "parentId": "A1_D3", "type": "reflection", "text": "Even in difficulty, you looked for what you could do. That's a strong internal locus of control.", "options": [], "target": "BRIDGE_1_2", "signal": "axis1:internal" },
+  { "id": "A1_R_EXT", "parentId": "A1_D3", "type": "reflection", "text": "A tough day pulls attention outward. But somewhere in there, you made a choice. Remember that you always have agency.", "options": [], "target": "BRIDGE_1_2", "signal": "axis1:external" },
+
+  { "id": "BRIDGE_1_2", "parentId": null, "type": "bridge", "text": "Now let's shift from how you handled things — to what you gave.", "options": [], "target": "A2_OPEN", "signal": "" },
+  
+  { "id": "A2_OPEN", "parentId": "BRIDGE_1_2", "type": "question", "text": "Think about one interaction you had today. Were you giving or expecting?", "options": ["I helped someone", "I taught someone something", "I needed support", "I felt overlooked"], "target": "", "signal": "" },
+  { "id": "A2_D1", "parentId": "A2_OPEN", "type": "decision", "text": "", "options": ["answer=I helped someone|I taught someone something:A2_Q_CONTRIB", "answer=I needed support|I felt overlooked:A2_Q_ENTITLE"], "target": "", "signal": "" },
+  
+  { "id": "A2_Q_CONTRIB", "parentId": "A2_D1", "type": "question", "text": "When you helped out, how did it feel?", "options": ["Energizing", "Like part of my duty", "Draining", "I hoped it would be noticed"], "target": "", "signal": "axis2:contribution" },
+  { "id": "A2_Q_ENTITLE", "parentId": "A2_D1", "type": "question", "text": "When you felt that way, what was your core expectation?", "options": ["I deserved more recognition", "I expected others to do their part", "I just needed a hand", "I felt the system was unfair"], "target": "", "signal": "axis2:entitlement" },
+
+  { "id": "A2_D2", "parentId": "A2_Q_CONTRIB", "type": "decision", "text": "", "options": ["answer=Energizing|Like part of my duty:A2_R_CONTRIB", "answer=Draining|I hoped it would be noticed:A2_R_ENTITLE_LIGHT"], "target": "", "signal": "" },
+  { "id": "A2_D3", "parentId": "A2_Q_ENTITLE", "type": "decision", "text": "", "options": ["answer=I just needed a hand:A2_R_CONTRIB_LIGHT", "answer=I deserved more recognition|I expected others to do their part|I felt the system was unfair:A2_R_ENTITLE"], "target": "", "signal": "" },
+
+  { "id": "A2_R_CONTRIB", "parentId": "A2_D2", "type": "reflection", "text": "True organizational citizenship happens when giving feels like its own reward. You contributed strongly today.", "options": [], "target": "BRIDGE_2_3", "signal": "axis2:contribution" },
+  { "id": "A2_R_ENTITLE_LIGHT", "parentId": "A2_D2", "type": "reflection", "text": "It's natural to want recognition for extra effort. Just ensure your primary drive remains the work itself.", "options": [], "target": "BRIDGE_2_3", "signal": "axis2:entitlement" },
+  { "id": "A2_R_CONTRIB_LIGHT", "parentId": "A2_D3", "type": "reflection", "text": "Needing support is human. Acknowledging it is the first step to building strong reciprocal relationships.", "options": [], "target": "BRIDGE_2_3", "signal": "axis2:contribution" },
+  { "id": "A2_R_ENTITLE", "parentId": "A2_D3", "type": "reflection", "text": "When we focus heavily on what we are owed, we give away our power to focus on what we can give.", "options": [], "target": "BRIDGE_2_3", "signal": "axis2:entitlement" },
+
+  { "id": "BRIDGE_2_3", "parentId": null, "type": "bridge", "text": "Finally, let's look at the scope of your focus today.", "options": [], "target": "A3_OPEN", "signal": "" },
+
+  { "id": "A3_OPEN", "parentId": "BRIDGE_2_3", "type": "question", "text": "When you think about today's biggest challenge, who comes to mind?", "options": ["Just me — it was my problem", "My team — we were all affected", "A specific colleague", "The customer or end user"], "target": "", "signal": "" },
+  { "id": "A3_D1", "parentId": "A3_OPEN", "type": "decision", "text": "", "options": ["answer=Just me — it was my problem:A3_Q_SELF", "answer=My team — we were all affected|A specific colleague|The customer or end user:A3_Q_ALTRO"], "target": "", "signal": "" },
+
+  { "id": "A3_Q_SELF", "parentId": "A3_D1", "type": "question", "text": "Focusing inward helps us survive. But what would happen if you widened your lens to how this challenge affects others?", "options": ["I'd feel less alone", "I'd see how my work helps the bigger picture", "It feels like too much responsibility", "I just want to get my part done"], "target": "", "signal": "axis3:self" },
+  { "id": "A3_Q_ALTRO", "parentId": "A3_D1", "type": "question", "text": "You framed the challenge around others. Does thinking about them make the work feel heavier or lighter?", "options": ["Lighter, it gives it meaning", "Heavier, it's a lot of pressure", "It grounds me in reality", "It makes me anxious"], "target": "", "signal": "axis3:altro" },
+
+  { "id": "A3_D2", "parentId": "A3_Q_SELF", "type": "decision", "text": "", "options": ["answer=I'd feel less alone|I'd see how my work helps the bigger picture:A3_R_ALTRO_LIGHT", "answer=It feels like too much responsibility|I just want to get my part done:A3_R_SELF"], "target": "", "signal": "" },
+  { "id": "A3_D3", "parentId": "A3_Q_ALTRO", "type": "decision", "text": "", "options": ["answer=Lighter, it gives it meaning|It grounds me in reality:A3_R_ALTRO", "answer=Heavier, it's a lot of pressure|It makes me anxious:A3_R_SELF_LIGHT"], "target": "", "signal": "" },
+
+  { "id": "A3_R_ALTRO_LIGHT", "parentId": "A3_D2", "type": "reflection", "text": "Opening up your radius of concern can actually relieve stress by connecting you to a shared purpose.", "options": [], "target": "SUMMARY", "signal": "axis3:altro" },
+  { "id": "A3_R_SELF", "parentId": "A3_D2", "type": "reflection", "text": "Self-preservation is a strong instinct. But remaining self-centric can sometimes amplify our own pain. Try to look outwards tomorrow.", "options": [], "target": "SUMMARY", "signal": "axis3:self" },
+  { "id": "A3_R_ALTRO", "parentId": "A3_D3", "type": "reflection", "text": "That's self-transcendence. Finding meaning in serving others is a profound source of resilience.", "options": [], "target": "SUMMARY", "signal": "axis3:altro" },
+  { "id": "A3_R_SELF_LIGHT", "parentId": "A3_D3", "type": "reflection", "text": "Empathy can be heavy. Make sure to balance caring for others with healthy boundaries for yourself.", "options": [], "target": "SUMMARY", "signal": "axis3:self" },
+
+  { "id": "SUMMARY", "parentId": null, "type": "summary", "text": "Today your locus of control leaned {axis1}. Your orientation was more towards {axis2}. And your radius of concern leaned {axis3}. Thank you for reflecting.", "options": [], "target": "END", "signal": "" },
+  { "id": "END", "parentId": "SUMMARY", "type": "end", "text": "See you tomorrow.", "options": [], "target": "", "signal": "" }
+]
